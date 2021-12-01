@@ -1,0 +1,179 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+  font-size: 100px;
+  margin-bottom: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  letter-spacing: 20px;
+  cursor: pointer;
+  animation: drop 7s ease;
+}
+h1:hover {
+  transition: 2s;
+  transform-origin: left;
+  transform: scaleX(1);
+  letter-spacing: 35px;
+  color: white;
+}
+
+:root {
+  --cell-size: 170px;
+  --mark-size: calc(var(--cell-size) * 0.9);
+}
+
+body {
+  margin: 0;
+  background-image: url(Tic.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+.board {
+  width: 100vw;
+  height: 65vh;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  grid-template-columns: repeat(3, auto);
+  animation: drop 3s ease; /* Make things beautiful */
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border: 5px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.cell.x::before,
+.cell.x::after {
+  background-color: #333;
+  transition: 1s;
+  transform-origin: left;
+  transform: scaleX(3);
+}
+.cell.circle::before {
+  background-color: #333;
+  transition: 1s;
+  transform-origin: center;
+  transform: scaleX(1.1);
+}
+
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+  background-color: rgba(61, 60, 60, 0.616);
+}
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after {
+  content: "";
+  position: absolute;
+  width: calc(var(--mark-size) * 0.15);
+  height: var(--mark-size);
+}
+
+.cell.x::before,
+.board.x .cell:not(.x):not(.circle):hover::before {
+  transform: rotate(45deg);
+}
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::after {
+  transform: rotate(-45deg);
+}
+
+.cell.circle::before,
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+
+.cell.circle::before,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+  width: var(--mark-size);
+  height: var(--mark-size);
+}
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  width: calc(var(--mark-size) * 0.7);
+  height: calc(var(--mark-size) * 0.7);
+  background-color: #ddd;
+}
+
+.winning-message {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 4rem;
+  flex-direction: column;
+}
+
+.winning-message button {
+  font-size: 3rem;
+  background-color: white;
+  border: 1px solid black;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+.winning-message button:hover {
+  background-color: black;
+  color: white;
+  border-color: white;
+}
+.winning-message.show {
+  display: flex;
+}
+
+footer {
+  width: 100%;
+  background-color: transparent;
+  color: #f2f2f2;
+  font-size: 22px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  letter-spacing: 2px;
+  padding-top: 25px;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+@keyframes drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  :root {
+    --cell-size: 120px;
+    --mark-size: calc(var(--cell-size) * 0.9);
+  }
+}
