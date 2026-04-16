@@ -64,3 +64,67 @@ body {
   z-index: 50;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+
+/* Premium section backgrounds + dividers */
+.bg-cyber-grid {
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(34, 245, 155, 0.08), transparent 40%),
+    radial-gradient(circle at 80% 0%, rgba(167, 139, 250, 0.12), transparent 45%),
+    radial-gradient(circle at 50% 70%, rgba(56, 189, 248, 0.08), transparent 45%),
+    linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.65));
+}
+
+.dark .bg-cyber-grid {
+  background-image:
+    radial-gradient(circle at 18% 12%, rgba(34, 245, 155, 0.10), transparent 38%),
+    radial-gradient(circle at 82% 4%, rgba(167, 139, 250, 0.14), transparent 44%),
+    radial-gradient(circle at 50% 72%, rgba(56, 189, 248, 0.10), transparent 46%),
+    linear-gradient(to bottom, rgba(5, 6, 10, 0.2), rgba(5, 6, 10, 0.92));
+}
+
+.bg-faint-grid {
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 65% 45% at 50% 0%, #000 50%, transparent 100%);
+  opacity: 0.22;
+}
+
+.dark .bg-faint-grid {
+  background-image:
+    linear-gradient(to right, rgba(56, 189, 248, 0.10) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.10) 1px, transparent 1px);
+  opacity: 0.28;
+}
+
+.glow-divider {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(56, 189, 248, 0.55) 35%,
+    rgba(34, 245, 155, 0.35) 55%,
+    rgba(167, 139, 250, 0.45) 75%,
+    transparent 100%
+  );
+  filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.25));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bg-gradient-drift {
+    background-size: 180% 180%;
+    animation: gradient-drift 14s ease-in-out infinite;
+  }
+}
+
+@keyframes gradient-drift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

@@ -83,7 +83,6 @@ export const cyberStats = {
     "rooms_completed: 42",
     "badges_earned: 12",
     "focus: blue_team fundamentals",
-    
   ],
 } as const;
 

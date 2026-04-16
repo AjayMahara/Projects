@@ -29,8 +29,15 @@ export function SectionHeader({
         transition={{ duration: 0.5, delay: 0.05 }}
         className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl"
       >
-        {title}
+        <span className="text-gradient">{title}</span>
       </motion.h2>
+      <motion.div
+        initial={{ scaleX: 0, opacity: 0 }}
+        whileInView={{ scaleX: 1, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+        className="mx-auto mt-4 h-px w-44 origin-center glow-divider"
+      />
       {subtitle ? (
         <motion.p
           initial={{ opacity: 0, y: 10 }}
