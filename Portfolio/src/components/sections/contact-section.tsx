@@ -85,9 +85,7 @@ export function ContactSection() {
                 <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-slate-500">
                   secure message
                 </p>
-                <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-                  Sends via your mail client.
-                </p>
+                
               </div>
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-slate-300">
                 encrypted vibes

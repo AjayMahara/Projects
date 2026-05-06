@@ -1,40 +1,45 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
 import { MotionReveal } from "@/components/motion-reveal";
 import { SectionHeader } from "@/components/section-header";
 import { skills } from "@/data/portfolio";
 import { PremiumSection } from "@/components/ui/premium-section";
 import { GlassCard } from "@/components/ui/glass-card";
 
-function SkillBar({
+function SkillTile({
   name,
-  level,
-  delay,
+  index,
 }: {
   name: string;
-  level: number;
-  delay: number;
+  index: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-10%" });
-
   return (
-    <div ref={ref} className="space-y-2">
-      <div className="flex items-center justify-between text-sm">
-        <span className="font-medium text-slate-800 dark:text-slate-200">{name}</span>
-        <span className="font-mono text-xs text-slate-500">{level}%</span>
+    <motion.div
+      initial={{ opacity: 0, y: 10, scale: 0.98 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-10% 0px" }}
+      transition={{ duration: 0.45, delay: Math.min(index * 0.03, 0.36) }}
+      whileHover={{ y: -4, scale: 1.02 }}
+      className="group relative"
+    >
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-neon-blue/20 via-transparent to-neon-purple/20 opacity-0 blur-xl transition duration-500 group-hover:opacity-100" />
+      <div className="relative rounded-2xl border border-slate-200/70 bg-white/60 px-4 py-3 shadow-sm backdrop-blur-md transition duration-300 group-hover:border-neon-blue/40 group-hover:bg-white/70 group-hover:shadow-neon-blue dark:border-white/10 dark:bg-white/[0.04] dark:group-hover:bg-white/[0.07]">
+        <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition group-hover:opacity-100">
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 via-transparent to-white/5 dark:from-white/5" />
+        </div>
+        <div className="relative flex items-center justify-between gap-3">
+          <span className="text-sm font-semibold text-slate-900 dark:text-white">
+            {name}
+          </span>
+          <span
+            className="h-1.5 w-1.5 rounded-full bg-slate-300 transition group-hover:bg-neon-green group-hover:shadow-neon dark:bg-white/15"
+            aria-hidden
+          />
+        </div>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-slate-200/80 dark:bg-white/5">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={inView ? { width: `${level}%` } : { width: 0 }}
-          transition={{ duration: 1.1, delay, ease: [0.22, 1, 0.36, 1] }}
-          className="h-full rounded-full bg-gradient-to-r from-neon-green via-neon-blue to-neon-purple shadow-neon"
-        />
-      </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -47,6 +52,13 @@ export function SkillsSection() {
   const activeItems = useMemo(
     () => categories.find(([t]) => String(t) === active)?.[1] ?? categories[0]?.[1] ?? [],
     [active, categories],
+  );
+  const allSkillNames = useMemo(
+    () =>
+      Array.from(
+        new Set(categories.flatMap(([, items]) => items.map((x) => x.name))),
+      ),
+    [categories],
   );
 
   return (
@@ -95,55 +107,61 @@ export function SkillsSection() {
                 );
               })}
             </div>
-            <p className="mt-6 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-              Click a category to reveal a focused proficiency panel with animated bars.
-            </p>
+
+            <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
+              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-slate-500">
+                highlight
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                No proficiency scores — just the tools I&apos;m actively using and
+                building with.
+              </p>
+            </div>
           </GlassCard>
         </MotionReveal>
 
         <MotionReveal className="lg:col-span-8" delay={0.06}>
           <GlassCard glow="blue" className="p-6 sm:p-8">
-            <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-slate-500">
-                  active
+                  active set
                 </p>
                 <h3 className="mt-2 text-xl font-semibold text-slate-900 dark:text-white">
                   {active}
                 </h3>
               </div>
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-slate-500 dark:text-slate-300">
-                proficiency
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-slate-300">
+                {activeItems.length} skills
               </span>
             </div>
 
-            <div className="mt-7 space-y-5">
+            <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {activeItems.map((s, i) => (
-                <SkillBar
-                  key={s.name}
-                  name={s.name}
-                  level={s.level}
-                  delay={0.05 * i}
-                />
+                <SkillTile key={s.name} name={s.name} index={i} />
               ))}
             </div>
 
-            <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-5">
-              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-slate-500">
-                quick tags
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {Array.from(new Set(categories.flatMap(([, items]) => items.map((x) => x.name))))
-                  .slice(0, 14)
-                  .map((tag) => (
-                    <motion.span
-                      key={tag}
-                      whileHover={{ y: -2, scale: 1.02 }}
-                      className="rounded-full border border-slate-200/70 bg-gradient-to-r from-white to-slate-50 px-3 py-1 text-xs font-medium text-slate-700 shadow-sm dark:border-white/10 dark:from-white/5 dark:to-white/[0.02] dark:text-slate-200"
-                    >
-                      {tag}
-                    </motion.span>
-                  ))}
+            <div className="mt-10">
+              <div className="mb-4 flex items-center justify-between gap-3">
+                <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-slate-500">
+                  full index
+                </p>
+                <span className="text-xs text-slate-500">
+                  {allSkillNames.length} total
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {allSkillNames.map((tag) => (
+                  <motion.span
+                    key={tag}
+                    whileHover={{ y: -2, scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 320, damping: 24 }}
+                    className="rounded-full border border-slate-200/70 bg-gradient-to-r from-white to-slate-50 px-3 py-1 text-xs font-medium text-slate-700 shadow-sm transition hover:border-neon-blue/40 hover:shadow-neon-blue dark:border-white/10 dark:from-white/5 dark:to-white/[0.02] dark:text-slate-200"
+                  >
+                    {tag}
+                  </motion.span>
+                ))}
               </div>
             </div>
           </GlassCard>
