@@ -4,7 +4,7 @@ export const SITE = {
   url: "https://ajaymahara.dev",
   tagline:
     "Securing systems with an SRE mindset — monitoring, detecting, and defending at scale.",
-  email: "ajay.mahara@example.com",
+  email: "mahara.ajay.2017306@gmail.com",
   linkedin: "https://www.linkedin.com/in/ajay-mahara",
   github: "https://github.com/ajaymahara",
   roles: [
