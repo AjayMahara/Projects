@@ -5,7 +5,7 @@ export const SITE = {
   tagline:
     "Securing systems with an SRE mindset — monitoring, detecting, and defending at scale.",
   email: "mahara.ajay.2017306@gmail.com",
-  linkedin: "https://www.linkedin.com/in/ajay-mahara",
+  linkedin: "https://www.linkedin.com/in/ajay-mahara-057b49188/",
   github: "https://github.com/ajaymahara",
   roles: [
     "SOC Analyst",
