@@ -92,14 +92,14 @@ export const projects = [
     description:
       "Feature engineering on PE headers and behavioral signals with classical and ensemble models for triage-grade classification.",
     stack: ["Python", "scikit-learn", "pandas", "Jupyter"],
-    github: "https://github.com/ajaymahara/malware-ml",
+    github: "https://github.com/AjayMahara/Projects/tree/main/Malware%20Detection%20And%20Analysis",
   },
   {
     title: "Image Steganography",
     description:
       "LSB-based embed/extract pipeline with perceptual quality checks and simple detection heuristics for education.",
     stack: ["Python", "OpenCV", "NumPy"],
-    github: "https://github.com/ajaymahara/image-stego",
+    github: "https://github.com/AjayMahara/Projects/tree/main/LSB_Steganography",
   },
 ] as const;
 
